@@ -5,7 +5,6 @@
 [![](https://img.shields.io/badge/Django-4.1-green)](https://www.djangoproject.com/)
 
 
-
 ## How to run
 
 1. Clone this repository
@@ -48,7 +47,6 @@ docker exec -it container_id python manage.py createsuperuser
 ```bash
 docker-compose up -d --build
 ```
-
 
 
  enjoy!
