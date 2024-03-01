@@ -3,7 +3,6 @@ from django.core.validators import RegexValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from accounts.models.user_manager import UserManager
-from city.models import City,Province
 from accounts.utils import random_N_chars_str
 
 

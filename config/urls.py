@@ -4,10 +4,8 @@ from django.urls import include, path
 from config.settings import STATIC_ROOT, STATIC_URL, MEDIA_URL, MEDIA_ROOT
 from . import views
 
-
 urlpatterns = [
     path('', views.index, name='home'),
-    path("redirect/", UserRedirectView.as_view(), name="redirect"),
     path("admin/", admin.site.urls),
     path("accounts/", include("accounts.urls")),
 ]
