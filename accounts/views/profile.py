@@ -10,7 +10,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 import re
 from django.utils.translation import gettext as _
 from rest_framework.throttling import AnonRateThrottle
-from accounts.functions import send_sms_otp
+#from accounts.functions import send_sms_otp
 from accounts.models import OneTimePassword, User
 
 

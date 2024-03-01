@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.throttling import AnonRateThrottle
 from rest_framework.views import APIView
-from accounts.functions import send_sms_otp
+#from accounts.functions import send_sms_otp
 from accounts.models import OneTimePassword, User
 from django.http import HttpResponse
 
