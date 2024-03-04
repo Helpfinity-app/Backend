@@ -46,5 +46,4 @@ docker exec -it container_id python manage.py createsuperuser
 docker-compose up -d --build
 ```
 
-
  enjoy!
