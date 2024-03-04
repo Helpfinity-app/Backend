@@ -5,7 +5,7 @@ from accounts.functions import get_user_data, login
 from accounts.models import OneTimePassword
 from accounts.selectors import get_user
 from config.settings import ACCESS_TTL
-from accounts.serializers import UserSerializer, UserAllFieldsSerializer, UserUpdateSerializer
+from accounts.serializers import UserSerializer, UserAllFieldsSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated
 import re
 from django.utils.translation import gettext as _

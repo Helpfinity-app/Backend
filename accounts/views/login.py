@@ -12,7 +12,6 @@ from config.settings import ACCESS_TTL
 
 
 
-
 class Login(APIView):
     serializer_class = UserSerializer
     permission_classes = [AllowAny]

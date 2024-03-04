@@ -7,12 +7,15 @@ from accounts.functions import get_user_data, login
 from accounts.models import OneTimePassword
 from accounts.selectors import get_user
 from config.settings import ACCESS_TTL
-from accounts.serializers import UserSerializer
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from accounts.serializers import UserSerializer, UserRegisterSerializer
+from accounts.models import User
 
 
 
-class VerifyOTP(APIView):
-    permission_classes = []
+class EmailVeriy(APIView):
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
 
     def post(self, *args, **kwargs):
         otp_id = self.request.data.get("otp_id", "")

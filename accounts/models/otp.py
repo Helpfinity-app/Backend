@@ -26,12 +26,12 @@ class OneTimePassword:
 
     def __save(self):
         cache.set(self.otp_id, self.__gen_value(), timeout=OTP_TTL)
-        cache.set(self.user.phone_number, "", timeout=OTP_TTL)
+        cache.set(self.user.email, "", timeout=OTP_TTL)
 
     def __gen_value(self):
         raw_code = "{}{}".format(self.otp_id, self.code)
         raw_data = {
-            "user_phone": self.user.phone_number,
+            "email": self.user.email,
             "user_id": str(self.user.id),
             "hash": make_password(raw_code),
         }
@@ -59,5 +59,5 @@ class OneTimePassword:
             raise ValueError("otp is inavlid")
         return data.get("user_id")
 
-    def otp_exist(phone_number):
-        return cache.has_key(phone_number)
+    def otp_exist(email):
+        return cache.has_key(email)
