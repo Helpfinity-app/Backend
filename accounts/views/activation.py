@@ -38,7 +38,6 @@ class EmailActivation(APIView):
         send_mail(subject, message, email_from, recipient_list)
 
 
-
         done = send_sms_otp(phone_number, otp.code)
         if not done:
             return Response(
