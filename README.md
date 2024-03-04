@@ -40,6 +40,7 @@ docker-compose exec web python manage.py migrate
 docker exec -it container_id python manage.py createsuperuser
 ```
 
+
 7. Build the image and spin up the two containers
 
 ```bash
@@ -47,4 +48,5 @@ docker-compose up -d --build
 ```
 
 
- enjoy!
+
+ enjoy!!
