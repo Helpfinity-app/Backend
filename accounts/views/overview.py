@@ -17,8 +17,8 @@ class OverView(APIView):
             "user": self.serializer_class(user).data,
             "ticket_count": None, #Invoice.objects.filter(user=user,status="پرداخت نشده").count(),
             "tickets": None, #InvoiceSerializer(Invoice.objects.filter(user=user,status="پرداخت نشده"),many=True).data,
-            "exams": None,
-            "payments": None,
+            "none": None,
+            "none": None,
         }
 
         return Response(data, status=status.HTTP_200_OK)
