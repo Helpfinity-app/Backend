@@ -1,11 +1,27 @@
-from rest_framework import status
+from rest_framework import viewsets, filters, status, pagination, mixins
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from accounts.functions import get_user_data, login
 from podcast.serializers import CatSerializer,PodSerializer
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAuthenticatedOrReadOnly, IsAdminUser
+from rest_framework.response import Response
+from rest_framework.generics import GenericAPIView
 from accounts.models import User
 from podcast.models import Category, Podcast
+from django.db.models import Q
+from rest_framework.pagination import LimitOffsetPagination, PageNumberPagination
+from rest_framework import pagination
+import json
+
+class CustomPagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'page_size'
+    max_page_size = 100
+
+
+
+
 
 
 class Categories(APIView):
@@ -25,3 +41,22 @@ class Podcasts(APIView):
         pods = Podcast.objects.all()
         serializer = self.serializer_class(pods,many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+
+
+
+class PodcastsFullView(GenericAPIView):
+    permission_classes = [AllowAny]
+    pagination_class = CustomPagination
+    serializer_class = PodSerializer
+    queryset = Podcast.objects.all()
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ['name']
+    ordering_fields = ['id']
+
+    def get(self, request, format=None):
+        query = self.filter_queryset(Podcast.objects.all())
+        serializer = self.serializer_class(query, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
