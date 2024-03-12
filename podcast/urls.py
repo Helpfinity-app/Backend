@@ -1,9 +1,10 @@
 from django.urls import path
-from accounts.views import Login,Register,EmailActivation,Logout,Profile,OverView,Refresh,RefreshAccess,UserValidationView
+from podcast.views import Categories,Podcasts
 
 
 urlpatterns = [
-    path("cat", Login.as_view(), name="login"),
+    path("cats", Categories.as_view(), name="cats"),
+    path("pods", Podcasts.as_view(), name="pods"),
 ]
 
 

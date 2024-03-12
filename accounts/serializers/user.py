@@ -24,4 +24,10 @@ class UserAllFieldsSerializer(serializers.ModelSerializer):
 class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ("email","password")
+        fields = ("username","first_name","last_name")
+
+
+class UserUpdatePhotoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = ("photo",)
