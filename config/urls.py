@@ -10,6 +10,7 @@ urlpatterns = [
     path("accounts/", include("accounts.urls")),
     path("podcast/", include("podcast.urls")),
     path("reminder/", include("reminder.urls")),
+    path("feeling/", include("feeling.urls")),
 ]
 
 urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)

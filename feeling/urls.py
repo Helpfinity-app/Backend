@@ -1,9 +1,10 @@
 from django.urls import path
-from accounts.views import Login,Register,EmailActivation,Logout,Profile,OverView,Refresh,RefreshAccess,UserValidationView
+from feeling.views import Feelings, FeelingItem
 
 
 urlpatterns = [
-    path("cat", Login.as_view(), name="login"),
+    path("feeling", Feelings.as_view(), name="feeling"),
+    path('feeling/<int:id>', FeelingItem.as_view(), name='feeling-item'),
 ]
 
 
