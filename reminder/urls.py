@@ -1,9 +1,10 @@
 from django.urls import path
-from accounts.views import Login,Register,EmailActivation,Logout,Profile,OverView,Refresh,RefreshAccess,UserValidationView
+from reminder.views import Reminders,ReminderItem
 
 
 urlpatterns = [
-    path("cat", Login.as_view(), name="login"),
+    path("reminder", Reminders.as_view(), name="reminder"),
+    path('reminder/<int:id>', ReminderItem.as_view(), name='reminder-item'),
 ]
 
 
