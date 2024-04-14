@@ -11,6 +11,9 @@ urlpatterns = [
     path("podcast/", include("podcast.urls")),
     path("reminder/", include("reminder.urls")),
     path("feeling/", include("feeling.urls")),
+    path("behavior/", include("behavior.urls")),
+    path("AIrefer/", include("AIrefer.urls")),
+    path("report/", include("report.urls")),
 ]
 
 urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)

@@ -50,6 +50,9 @@ LOCAL_APPS = (
     "podcast",
     "feeling",
     "reminder",
+    "behavior",
+    "AIrefer",
+    "report",
 )
 
 

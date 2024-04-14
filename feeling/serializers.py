@@ -6,3 +6,10 @@ class FeelingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Feeling
         fields = "__all__"
+
+
+
+class FeelingShortSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Feeling
+        fields = ("feeling", "date_time")
