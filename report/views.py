@@ -7,8 +7,6 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from accounts.models import User
 from behavior.models import UserBehavior
 from feeling.models import Feeling
-from django.shortcuts import render, get_object_or_404
-
 
 
 class Analyze(APIView):
