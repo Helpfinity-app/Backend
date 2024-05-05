@@ -23,8 +23,8 @@ DATABASES = {
 
 
 # CORSHEADERS CONFIGURATION
-CORS_ALLOWED_ORIGINS = ["http://localhost", "http://127.0.0.1","217.197.97.105"]
-CSRF_TRUSTED_ORIGINS = ["http://localhost", "http://127.0.0.1","217.197.97.105"]
+CORS_ALLOWED_ORIGINS = ["http://localhost", "http://127.0.0.1","http://217.197.97.105"]
+CSRF_TRUSTED_ORIGINS = ["http://localhost", "http://127.0.0.1","http://217.197.97.105"]
 
 CORS_REPLACE_HTTPS_REFERER = True
 CORS_ALLOW_CREDENTIALS = True
@@ -33,4 +33,3 @@ MIDDLEWARE += ("corsheaders.middleware.CorsMiddleware",)
 DEBUG = get_env("DEBUG") == "True"
 
 JWT_SECRET = get_env("JWT_SECRET", default=SECRET_KEY)
-
