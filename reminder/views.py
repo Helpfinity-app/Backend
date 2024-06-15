@@ -6,6 +6,36 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from accounts.models import User
 from reminder.models import Reminder
 from django.shortcuts import render, get_object_or_404
+from django.db.models import Q
+from rest_framework.pagination import LimitOffsetPagination, PageNumberPagination
+from rest_framework import pagination
+from rest_framework.generics import GenericAPIView
+from django_filters.rest_framework import DjangoFilterBackend
+
+
+class CustomPagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'page_size'
+    max_page_size = 100
+
+
+class RemindersFullView(GenericAPIView):
+    permission_classes = [IsAuthenticated]
+    pagination_class = CustomPagination
+    serializer_class = ReminderSerializer
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ['title']
+    ordering_fields = ['date_time']
+    filterset_fields = ['date_time','id']
+
+    def get(self, request, format=None):
+        query = self.filter_queryset(Reminder.objects.filter(user=self.request.user))
+        page = self.paginate_queryset(query)
+        if page is not None:
+            serializer = self.serializer_class(page, many=True)
+            return self.get_paginated_response(serializer.data)
+        serializer = self.serializer_class(query, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 
@@ -29,7 +59,6 @@ class Reminders(APIView):
 
 
 
-
 class ReminderItem(APIView):
         serializer_class = ReminderSerializer
         permission_classes = [IsAuthenticated]
@@ -37,3 +66,8 @@ class ReminderItem(APIView):
             reminder = get_object_or_404(Reminder, id=self.kwargs["id"])
             serializer = self.serializer_class(reminder)
             return Response(serializer.data)
+
+        def delete(self, request, *args, **kwargs):
+            reminder = get_object_or_404(Reminder, id=self.kwargs["id"])
+            reminder.delete()
+            return Response("reminder deleted.")
