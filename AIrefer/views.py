@@ -36,6 +36,26 @@ class UserAnswer(APIView):
 
 
 
+
+class UserMultiAnswer(APIView):
+    #serializer_class = User_AIrefer_AnswerSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, format=None):
+        try:
+            data = self.request.data
+            for Q in data['questions']:
+                ai_answers = User_AIrefer_Answer()
+                ai_answers.user = self.request.user
+                ai_answers.questions = AIrefer_Questions.objects.get(id=Q['question'])
+                ai_answers.answer = Q['answer']
+                ai_answers.save()
+                return Response(data, status=status.HTTP_201_CREATED)
+        except:
+            return Response("questions not found or other error... try again", status=status.HTTP_400_BAD_REQUEST)
+
+
+
 class Thoughts(APIView):
     serializer_class = ThoughtsSerializer
     permission_classes = [IsAuthenticated]

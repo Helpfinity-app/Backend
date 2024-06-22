@@ -24,9 +24,9 @@ class RemindersFullView(GenericAPIView):
     pagination_class = CustomPagination
     serializer_class = ReminderSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    search_fields = ['title']
-    ordering_fields = ['date_time']
-    filterset_fields = ['date_time','id']
+    search_fields = ['title','day','time']
+    ordering_fields = ['time']
+    filterset_fields = ['time','id','isActive']
 
     def get(self, request, format=None):
         query = self.filter_queryset(Reminder.objects.filter(user=self.request.user))
@@ -66,6 +66,17 @@ class ReminderItem(APIView):
             reminder = get_object_or_404(Reminder, id=self.kwargs["id"])
             serializer = self.serializer_class(reminder)
             return Response(serializer.data)
+
+        def patch(self, request, *args, **kwargs):
+            reminder = get_object_or_404(Reminder, id=self.kwargs["id"])
+            data = self.request.data
+            data['user'] = self.request.user.id
+            serializer = ReminderSerializer(reminder, data=data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
         def delete(self, request, *args, **kwargs):
             reminder = get_object_or_404(Reminder, id=self.kwargs["id"])
