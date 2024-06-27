@@ -1,5 +1,5 @@
 from django.urls import path
-from accounts.views import Login,Register,EmailActivation,Logout,Profile,OverView,Refresh,RefreshAccess,UserValidationView
+from accounts.views import Login,Register,EmailActivation,Logout,Profile,OverView,Refresh,RefreshAccess,UserValidationView,ChangePass
 
 
 urlpatterns = [
@@ -13,6 +13,7 @@ urlpatterns = [
     path("refresh", Refresh.as_view(), name="refresh"),
     path("refresh-access", RefreshAccess.as_view(), name="refresh-access"),
     path("is-valid", UserValidationView.as_view(), name="is-valid"),
+    path("change-pass", ChangePass.as_view(), name="change-pass"),
 ]
 
 
