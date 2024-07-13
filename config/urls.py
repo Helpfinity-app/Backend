@@ -14,6 +14,7 @@ urlpatterns = [
     path("behavior/", include("behavior.urls")),
     path("AIrefer/", include("AIrefer.urls")),
     path("report/", include("report.urls")),
+    path("journey/", include("journey.urls"))
 ]
 
 urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
