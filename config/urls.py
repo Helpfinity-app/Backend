@@ -11,6 +11,7 @@ urlpatterns = [
     path("podcast/", include("podcast.urls")),
     path("reminder/", include("reminder.urls")),
     path("feeling/", include("feeling.urls")),
+    path("emotion/", include("emotion.urls")),
     path("behavior/", include("behavior.urls")),
     path("AIrefer/", include("AIrefer.urls")),
     path("report/", include("report.urls")),

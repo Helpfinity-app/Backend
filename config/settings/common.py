@@ -1,5 +1,7 @@
 from os import environ
 from pathlib import Path
+from datetime import timedelta
+
 
 
 # GET ENV UTIL
@@ -49,6 +51,7 @@ LOCAL_APPS = (
     "accounts",
     "podcast",
     "feeling",
+    "emotion",
     "reminder",
     "behavior",
     "AIrefer",
@@ -173,8 +176,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        #"LOCATION": get_env("REDIS_URL"),
-        "LOCATION": "redis://195.214.235.46:6379/1",
+        "LOCATION": "redis://5.161.144.222:6379/1",
     }
 }
 # END CACHING CONFIGURATION
@@ -188,10 +190,26 @@ OTP_CODE_LENGTH = int(get_env("OTP_CODE_LENGTH", default="4"))
 OTP_TTL = int(get_env("OTP_TTL", default="120"))
 # END OTP CONFIGURATION
 
+
+
 # JWT SETIINGS
-ACCESS_TTL = int(get_env("ACCESS_TTL", default="1"))  # days
-REFRESH_TTL = int(get_env("REFRESH_TTL", default="1"))  # days
+#ACCESS_TTL = int(get_env("ACCESS_TTL", default="1"))  # days
+#REFRESH_TTL = int(get_env("REFRESH_TTL", default="1"))  # days
+
+ACCESS_TTL = 0.0006
+REFRESH_TTL = 0.005
+
+'''
+ACCESS_TIME = timedelta(minutes=10)
+ACCESS_TTL = int(ACCESS_TIME.total_seconds() / 60 )
+print(ACCESS_TTL)
+
+REFRESH_TIME = timedelta(minutes=15)
+REFRESH_TTL = int(REFRESH_TIME.total_seconds() / 60 )
+print(REFRESH_TTL)
+'''
 # END JWT SETTINGS
+
 
 
 
