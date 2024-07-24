@@ -12,3 +12,28 @@ class Emotion(models.Model):
 
     def __str__(self):
         return str(self.feeling)+" | "+str(self.user)
+
+
+
+
+
+class Anxitey(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=256,null=True,blank=True)
+    level = models.IntegerField(default=0)
+    date_time = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.title)+" | "+str(self.user)
+
+
+
+
+class Depression(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=256,null=True,blank=True)
+    level = models.IntegerField(default=0)
+    date_time = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.title)+" | "+str(self.user)

@@ -4,6 +4,7 @@ from django.utils.html import format_html
 
 
 class Category(models.Model):
+    id = models.CharField(max_length=100, unique=True, primary_key=True)
     name = models.CharField(max_length=128,unique=True)
     icon = models.ImageField(upload_to='cat_icon', default="cat_icon/default.png")
 

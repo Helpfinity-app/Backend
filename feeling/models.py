@@ -13,8 +13,3 @@ class Feeling(models.Model):
 
 
 
-
-
-
-
-
