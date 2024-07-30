@@ -11,6 +11,7 @@ from collections import Counter
 from behavior.models import UserBehavior
 
 
+
 class Mood(APIView):
     serializer_class = EmotionChartSerializer
     permission_classes = [IsAuthenticated]
@@ -62,7 +63,6 @@ class TopNegative(APIView):
                 top_negative.append({"number": num, "label": obj[0]})
                 num += 1
         return Response(top_negative, status=status.HTTP_200_OK)
-
 
 
 class TopBehavior(APIView):
