@@ -6,6 +6,11 @@ class EmotionSerializer(serializers.ModelSerializer):
         model = Emotion
         fields = "__all__"
 
+class EmotionChartSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Emotion
+        fields = ("feeling","date_time")
+
 class AnxiteySerializer(serializers.ModelSerializer):
     class Meta:
         model = Anxitey

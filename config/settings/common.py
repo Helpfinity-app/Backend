@@ -57,6 +57,7 @@ LOCAL_APPS = (
     "AIrefer",
     "report",
     "journey",
+    "analyze",
 )
 
 
@@ -196,8 +197,8 @@ OTP_TTL = int(get_env("OTP_TTL", default="120"))
 #ACCESS_TTL = int(get_env("ACCESS_TTL", default="1"))  # days
 #REFRESH_TTL = int(get_env("REFRESH_TTL", default="1"))  # days
 
-ACCESS_TTL = 0.0006
-REFRESH_TTL = 0.005
+ACCESS_TTL = 10000#0.0006
+REFRESH_TTL = 10000#0.005
 
 '''
 ACCESS_TIME = timedelta(minutes=10)
