@@ -5,7 +5,6 @@ from emotion.serializers import EmotionChartSerializer, EmotionSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from accounts.models import User
 from emotion.models import Emotion
-from django.shortcuts import render, get_object_or_404
 import ast
 from collections import Counter
 from behavior.models import UserBehavior
@@ -84,14 +83,12 @@ class TopBehavior(APIView):
         return Response(top_behavior, status=status.HTTP_200_OK)
 
 
-
 class Full(APIView):
     serializer_class = EmotionChartSerializer
     permission_classes = [IsAuthenticated]
     def get(self, *args, **kwargs):
         emotions = Emotion.objects.filter(user=self.request.user).order_by('-date_time')[:7]
         serializer = self.serializer_class(emotions,many=True)
-
 
         combined_list = []
         for obj in emotions:
@@ -120,7 +117,6 @@ class Full(APIView):
             if num <= 5:
                 top_negative.append({"number": num, "label": obj[0]})
                 num += 1
-
 
 
         behavior = UserBehavior.objects.filter(user=self.request.user).order_by('-date_time')[:7]
