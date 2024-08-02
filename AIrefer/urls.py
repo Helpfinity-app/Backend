@@ -1,5 +1,5 @@
 from django.urls import path
-from AIrefer.views import Questions, UserAnswer, Thoughts,UserMultiAnswer
+from AIrefer.views import Questions, UserAnswer, Thoughts,UserMultiAnswer, ResultView, AnswersView
 
 
 urlpatterns = [
@@ -7,6 +7,8 @@ urlpatterns = [
     path('user-answer', UserAnswer.as_view(), name='user-answer'),
     path('user-multi-answer', UserMultiAnswer.as_view(), name='user-multi-answer'),
     path('thoughts', Thoughts.as_view(), name='thoughts'),
+    path('result', ResultView.as_view(), name='result'),
+    path('answers', AnswersView.as_view(), name='answers'),
 ]
 
 

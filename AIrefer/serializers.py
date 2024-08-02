@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from AIrefer.models import AIrefer_Questions, User_AIrefer_Answer, Thoughts
+from AIrefer.models import AIrefer_Questions, User_AIrefer_Answer, Thoughts, Answer
 
 
 class AIrefer_QuestionsSerializer(serializers.ModelSerializer):
@@ -17,4 +17,10 @@ class User_AIrefer_AnswerSerializer(serializers.ModelSerializer):
 class ThoughtsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Thoughts
+        fields = "__all__"
+
+
+class AnswerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Answer
         fields = "__all__"

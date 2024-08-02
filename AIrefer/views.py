@@ -1,12 +1,11 @@
 from rest_framework import viewsets, filters, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from AIrefer.serializers import AIrefer_QuestionsSerializer, User_AIrefer_AnswerSerializer, ThoughtsSerializer
+from AIrefer.serializers import AIrefer_QuestionsSerializer, User_AIrefer_AnswerSerializer, ThoughtsSerializer, AnswerSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from accounts.models import User
-from AIrefer.models import AIrefer_Questions, User_AIrefer_Answer, Thoughts
+from AIrefer.models import AIrefer_Questions, User_AIrefer_Answer, Thoughts, Answer
 from django.shortcuts import render, get_object_or_404
-
 
 
 
@@ -68,3 +67,24 @@ class Thoughts(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+class ResultView(APIView):
+    serializer_class = AIrefer_QuestionsSerializer
+    permission_classes = [IsAuthenticated]
+    def get(self, *args, **kwargs):
+        return Response("In preparation...", status=status.HTTP_200_OK)
+
+
+
+
+class AnswersView(APIView):
+    serializer_class = AnswerSerializer
+    permission_classes = [AllowAny]
+    def get(self, *args, **kwargs):
+        answer = Answer.objects.all()
+        serializer = self.serializer_class(answer,many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
