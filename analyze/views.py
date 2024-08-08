@@ -16,6 +16,7 @@ from django.utils import timezone
 import random
 
 
+
 class Mood(APIView):
     serializer_class = EmotionChartSerializer
     permission_classes = [IsAuthenticated]
@@ -228,9 +229,6 @@ class TopBehavior(APIView):
             top_behavior = []
 
         return Response(top_behavior, status=status.HTTP_200_OK)
-
-
-
 
 
 
