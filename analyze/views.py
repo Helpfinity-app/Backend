@@ -207,21 +207,25 @@ class TopBehavior(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, *args, **kwargs):
         behavior = UserBehavior.objects.filter(user=self.request.user).order_by('-date_time')[:7]
-        combined_list = []
-        for obj in behavior:
-            combined_list.append(obj.behavior.behavior)
-        counter = Counter(combined_list)
-        sorted_data = sorted(counter.items(), key=lambda x: (-x[1], x[0]))
+        if behavior:
+            combined_list = []
+            for obj in behavior:
+                combined_list.append(obj.behavior.behavior)
+            counter = Counter(combined_list)
+            sorted_data = sorted(counter.items(), key=lambda x: (-x[1], x[0]))
 
-        top_behavior = []
-        lst = []
-        for obj in sorted_data:
-            lst.append(obj[1])
-        total = sum(lst)
-        scale_factor = 360 / total
-        for x in sorted_data:
-            item = {"label":x[0], "value":x[1]*scale_factor, "color":"#{:06x}".format(random.randint(0, 0xFFFFFF))}
-            top_behavior.append(item)
+            top_behavior = []
+            lst = []
+            for obj in sorted_data:
+                lst.append(obj[1])
+            total = sum(lst)
+            scale_factor = 360 / total
+            for x in sorted_data:
+                item = {"label": x[0], "value": x[1] * scale_factor,
+                        "color": "#{:06x}".format(random.randint(0, 0xFFFFFF))}
+                top_behavior.append(item)
+        else:
+            top_behavior = []
 
         return Response(top_behavior, status=status.HTTP_200_OK)
 
@@ -404,21 +408,25 @@ class Full(APIView):
 
 
         behavior = UserBehavior.objects.filter(user=self.request.user).order_by('-date_time')[:7]
-        combined_list3 = []
-        for obj in behavior:
-            combined_list3.append(obj.behavior.behavior)
-        counter3 = Counter(combined_list3)
-        sorted_data3 = sorted(counter3.items(), key=lambda x: (-x[1], x[0]))
+        if behavior:
+            combined_list3 = []
+            for obj in behavior:
+                combined_list3.append(obj.behavior.behavior)
+            counter3 = Counter(combined_list3)
+            sorted_data3 = sorted(counter3.items(), key=lambda x: (-x[1], x[0]))
 
-        top_behavior = []
-        lst = []
-        for obj in sorted_data3:
-            lst.append(obj[1])
-        total = sum(lst)
-        scale_factor = 360 / total
-        for x in sorted_data3:
-            item = {"label": x[0], "value": x[1] * scale_factor, "color": "#{:06x}".format(random.randint(0, 0xFFFFFF))}
-            top_behavior.append(item)
+            top_behavior = []
+            lst = []
+            for obj in sorted_data3:
+                lst.append(obj[1])
+            total = sum(lst)
+            scale_factor = 360 / total
+            for x in sorted_data3:
+                item = {"label": x[0], "value": x[1] * scale_factor,
+                        "color": "#{:06x}".format(random.randint(0, 0xFFFFFF))}
+                top_behavior.append(item)
+        else:
+            top_behavior = []
 
         full_data = {"mood":mood, "top_positive":top_positive, "top_negative":top_negative, "top_behavior":top_behavior}
         return Response(full_data, status=status.HTTP_200_OK)
