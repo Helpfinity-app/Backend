@@ -8,7 +8,6 @@ from AIrefer.models import AIrefer_Questions, User_AIrefer_Answer, Thoughts, Ans
 from django.shortcuts import render, get_object_or_404
 
 
-
 class Questions(APIView):
     serializer_class = AIrefer_QuestionsSerializer
     permission_classes = [IsAuthenticated]
@@ -16,7 +15,6 @@ class Questions(APIView):
         questions = AIrefer_Questions.objects.all()
         serializer = self.serializer_class(questions,many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
 
 
 
@@ -79,7 +77,6 @@ class ResultView(APIView):
 
 
 
-
 class AnswersView(APIView):
     serializer_class = AnswerSerializer
     permission_classes = [AllowAny]
@@ -87,4 +84,3 @@ class AnswersView(APIView):
         answer = Answer.objects.all()
         serializer = self.serializer_class(answer,many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
