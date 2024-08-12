@@ -8,8 +8,6 @@ from behavior.models import Behavior,UserBehavior
 from django.shortcuts import render, get_object_or_404
 
 
-
-
 class Behaviors(APIView):
     serializer_class = BehaviorSerializer
     permission_classes = [IsAuthenticated]

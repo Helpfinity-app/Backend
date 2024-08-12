@@ -11,7 +11,6 @@ from datetime import timedelta
 
 
 
-
 class JourneyView(APIView):
     serializer_class = JourneySerializer
     permission_classes = [IsAuthenticated]
@@ -31,7 +30,6 @@ class JourneyView(APIView):
 
 
 
-
 class JourneyItem(APIView):
         serializer_class = JourneySerializer
         permission_classes = [IsAuthenticated]
@@ -39,7 +37,6 @@ class JourneyItem(APIView):
             journey = get_object_or_404(Journey, id=self.kwargs["id"])
             serializer = self.serializer_class(journey)
             return Response(serializer.data)
-
 
 
 
@@ -63,4 +60,3 @@ class BreathView(APIView):
             serializer.save()
             return Response("Breath added.", status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-

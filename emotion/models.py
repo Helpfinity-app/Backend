@@ -6,9 +6,9 @@ class Emotion(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     feeling = models.CharField(max_length=256,null=True,blank=True)
     feeling_rate = models.IntegerField(default=50)
-    positive = models.CharField(max_length=256,null=True,blank=True)
-    negative = models.CharField(max_length=256,null=True,blank=True)
-    effect = models.CharField(max_length=256,null=True,blank=True)
+    positive = models.CharField(max_length=256,default="[]")
+    negative = models.CharField(max_length=256,default="[]")
+    effect = models.CharField(max_length=256,default="[]")
     date_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
