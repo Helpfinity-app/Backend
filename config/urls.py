@@ -6,6 +6,7 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='home'),
+    path('landing', views.Landing.as_view() , name='landing'),
     path("admin/", admin.site.urls),
     path("accounts/", include("accounts.urls")),
     path("podcast/", include("podcast.urls")),
@@ -18,6 +19,5 @@ urlpatterns = [
     path("journey/", include("journey.urls")),
     path("analyze/", include("analyze.urls"))
 ]
-
 urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
 urlpatterns += static(STATIC_URL, document_root=STATIC_ROOT)

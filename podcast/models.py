@@ -2,7 +2,6 @@ from django.db import models
 from django.utils.html import format_html
 
 
-
 class Category(models.Model):
     id = models.CharField(max_length=100, unique=True, primary_key=True)
     name = models.CharField(max_length=128,unique=True)
@@ -13,8 +12,6 @@ class Category(models.Model):
 
     def img(self):
         return format_html("<img width=40 src='{}'>".format(self.icon.url))
-
-
 
 
 
@@ -30,13 +27,3 @@ class Podcast(models.Model):
 
     def img(self):
         return format_html("<img width=40 src='{}'>".format(self.cover.url))
-
-
-
-
-
-
-
-
-
-
