@@ -11,6 +11,20 @@ from datetime import timedelta
 
 
 
+class JourneyStepsView(APIView):
+    serializer_class = JourneySerializer
+    permission_classes = [IsAuthenticated]
+    def get(self, *args, **kwargs):
+        today = timezone.now()
+        journey = Journey.objects.filter(date_time__date=today.date()).order_by('-date_time').first()
+        if journey:
+            serializer = self.serializer_class(journey)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response("No journeys found for today.", status=status.HTTP_404_NOT_FOUND)
+
+
+
+
 class JourneyView(APIView):
     serializer_class = JourneySerializer
     permission_classes = [IsAuthenticated]
