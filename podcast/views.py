@@ -12,7 +12,8 @@ from django.db.models import Q
 from rest_framework.pagination import LimitOffsetPagination, PageNumberPagination
 from rest_framework import pagination
 from django.shortcuts import render, get_object_or_404
-
+from journey.serializers import JourneySerializer, BreathSerializer
+from datetime import datetime
 
 class CustomPagination(PageNumberPagination):
     page_size = 10
@@ -67,9 +68,6 @@ class PodcastsFullView(GenericAPIView):
 
 
 
-
-
-
 class PodcastItem(APIView):
         serializer_class = PodSerializer
         permission_classes = [AllowAny]
@@ -77,3 +75,19 @@ class PodcastItem(APIView):
             pod = get_object_or_404(Podcast, id=self.kwargs["id"])
             serializer = self.serializer_class(pod)
             return Response(serializer.data)
+
+
+
+class PodcastDone(APIView):
+    serializer_class = PodSerializer
+    permission_classes = [IsAuthenticated]
+    def get(self, request, *args, **kwargs):
+        data = {}
+        data['user'] = self.request.user.id
+        data['level'] = 4
+        data['date'] = datetime.now().strftime('%A')
+        jserializer = JourneySerializer(data=data, partial=True)
+        if jserializer.is_valid():
+            jserializer.save()
+            return Response("The podcast was heard today.", status=status.HTTP_200_OK)
+        return Response(jserializer.errors, status=status.HTTP_400_BAD_REQUEST)

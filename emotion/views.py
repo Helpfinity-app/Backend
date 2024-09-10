@@ -6,6 +6,9 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from accounts.models import User
 from emotion.models import Emotion, Depression, Anxitey
 from django.shortcuts import render, get_object_or_404
+from journey.models import Journey, Breath
+from journey.serializers import JourneySerializer, BreathSerializer
+from datetime import datetime
 
 
 
@@ -20,9 +23,14 @@ class Emotions(APIView):
     def post(self, request, format=None):
         data=self.request.data
         data['user'] = self.request.user.id
+        data['level'] = 1
+        data['date'] = datetime.now().strftime('%A')
         serializer = EmotionSerializer(data=data,partial=True)
         if serializer.is_valid():
             serializer.save()
+            jserializer = JourneySerializer(data=data,partial=True)
+            if jserializer.is_valid():
+                jserializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -51,9 +59,14 @@ class Depressions(APIView):
     def post(self, request, format=None):
         data=self.request.data
         data['user'] = self.request.user.id
+        data['level'] = 1
+        data['date'] = datetime.now().strftime('%A')
         serializer = DepressionSerializer(data=data,partial=True)
         if serializer.is_valid():
             serializer.save()
+            jserializer = JourneySerializer(data=data, partial=True)
+            if jserializer.is_valid():
+                jserializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -84,9 +97,14 @@ class Anxieties(APIView):
     def post(self, request, format=None):
         data=self.request.data
         data['user'] = self.request.user.id
+        data['level'] = 1
+        data['date'] = datetime.now().strftime('%A')
         serializer = AnxiteySerializer(data=data,partial=True)
         if serializer.is_valid():
             serializer.save()
+            jserializer = JourneySerializer(data=data, partial=True)
+            if jserializer.is_valid():
+                jserializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

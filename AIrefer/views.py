@@ -6,6 +6,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from accounts.models import User
 from AIrefer.models import AIrefer_Questions, User_AIrefer_Answer, Thoughts, Answer
 from django.shortcuts import render, get_object_or_404
+from journey.serializers import JourneySerializer, BreathSerializer
+from datetime import datetime
 
 
 class Questions(APIView):
@@ -60,9 +62,14 @@ class Thoughts(APIView):
     def post(self, request, format=None):
         data=self.request.data
         data['user'] = self.request.user.id
+        data['level'] = 3
+        data['date'] = datetime.now().strftime('%A')
         serializer = ThoughtsSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
+            jserializer = JourneySerializer(data=data, partial=True)
+            if jserializer.is_valid():
+                jserializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

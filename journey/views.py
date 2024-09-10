@@ -8,7 +8,8 @@ from journey.models import Journey, Breath
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from datetime import timedelta
-
+from journey.serializers import JourneySerializer, BreathSerializer
+from datetime import datetime
 
 
 class JourneyStepsView(APIView):
@@ -16,7 +17,7 @@ class JourneyStepsView(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, *args, **kwargs):
         today = timezone.now()
-        journey = Journey.objects.filter(date_time__date=today.date()).order_by('-date_time').first()
+        journey = Journey.objects.filter(date_time__date=today.date()).order_by('-level').first()
         if journey:
             serializer = self.serializer_class(journey)
             return Response(serializer.data, status=status.HTTP_200_OK)
@@ -29,8 +30,17 @@ class JourneyView(APIView):
     serializer_class = JourneySerializer
     permission_classes = [IsAuthenticated]
     def get(self, *args, **kwargs):
-        journey = Journey.objects.filter(user=self.request.user).order_by('-id')[:8]
-        serializer = self.serializer_class(journey,many=True)
+        eight_days_ago = timezone.now() - timedelta(days=8)
+        journeys = Journey.objects.filter(user=self.request.user, date_time__gte=eight_days_ago)
+        # Get the journey with the highest level for each day
+        result = []
+        for day in range(8):
+            day_start = eight_days_ago + timedelta(days=day)
+            day_end = day_start + timedelta(days=1)
+            max_level_journey = journeys.filter(date_time__gte=day_start, date_time__lt=day_end).order_by('-level').first()
+            if max_level_journey:
+                result.append(max_level_journey)
+        serializer = self.serializer_class(result, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
@@ -69,8 +79,13 @@ class BreathView(APIView):
     def post(self, request, format=None):
         data=self.request.data
         data['user'] = self.request.user.id
+        data['level'] = 2
+        data['date'] = datetime.now().strftime('%A')
         serializer = BreathSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
+            jserializer = JourneySerializer(data=data, partial=True)
+            if jserializer.is_valid():
+                jserializer.save()
             return Response("Breath added.", status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -6,7 +6,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from accounts.models import User
 from behavior.models import Behavior,UserBehavior
 from django.shortcuts import render, get_object_or_404
-
+from journey.serializers import JourneySerializer, BreathSerializer
+from datetime import datetime
 
 class Behaviors(APIView):
     serializer_class = BehaviorSerializer
@@ -33,8 +34,13 @@ class UserBehavior(APIView):
     def post(self, request, format=None):
         data=self.request.data
         data['user'] = self.request.user.id
+        data['level'] = 1
+        data['date'] = datetime.now().strftime('%A')
         serializer = UserBehaviorSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
+            jserializer = JourneySerializer(data=data, partial=True)
+            if jserializer.is_valid():
+                jserializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
