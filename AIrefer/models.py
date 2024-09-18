@@ -14,7 +14,7 @@ class AIrefer_Questions(models.Model):
 class User_AIrefer_Answer(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     questions = models.ForeignKey(AIrefer_Questions, on_delete=models.CASCADE)
-    answer = models.CharField(max_length=128)
+    answer = models.CharField(max_length=256)
     date_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

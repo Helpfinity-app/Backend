@@ -8,6 +8,11 @@ from AIrefer.models import AIrefer_Questions, User_AIrefer_Answer, Thoughts, Ans
 from django.shortcuts import render, get_object_or_404
 from journey.serializers import JourneySerializer, BreathSerializer
 from datetime import datetime
+from openai import OpenAI
+from django.utils import timezone
+
+
+
 
 
 class Questions(APIView):
@@ -75,12 +80,27 @@ class Thoughts(APIView):
 
 
 
+client = OpenAI(api_key='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')
 
 class ResultView(APIView):
     serializer_class = AIrefer_QuestionsSerializer
     permission_classes = [IsAuthenticated]
     def get(self, *args, **kwargs):
-        return Response("In preparation...", status=status.HTTP_200_OK)
+        today = timezone.now().date()
+        question_answers = User_AIrefer_Answer.objects.filter(user=self.request.user,date_time__date=today)
+        user_answers = ""
+        for item in question_answers:
+            user_answers += "\n \n"
+            user_answers += item.questions.questions
+            user_answers += "\n"
+            user_answers += item.answer
+
+        prompt = "This is a list of psychological questions with their answers related to a person." \
+                 "{} \n Based on this person's answers, do a psychological analysis of his situation and give him a report and help him get better and don't ask him any more questions.".format(user_answers)
+
+        response = client.completions.create(model="gpt-3.5-turbo-instruct",prompt=prompt,max_tokens=150)
+        answer = response.choices[0].text.strip()
+        return Response(answer, status=status.HTTP_200_OK)
 
 
 
