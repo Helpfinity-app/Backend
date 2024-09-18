@@ -7,7 +7,8 @@ admin.site.register(AIrefer_Questions, AIrefer_QuestionsAdmin)
 
 
 class User_AIrefer_AnswerAdmin(admin.ModelAdmin):
-    list_display = ('user','questions','answer','date_time')
+    list_display = ('user','questions','date_time')
+    list_filter = ('user', 'date_time')
 admin.site.register(User_AIrefer_Answer, User_AIrefer_AnswerAdmin)
 
 
