@@ -43,6 +43,8 @@ THIRD_PARTY_APPS = (
     "corsheaders",
     "gunicorn",
     "django.contrib.sites",
+    "drf_social_oauth2",
+    "oauth2_provider",
 )
 
 # Apps specific for this project go here.
@@ -211,6 +213,17 @@ print(REFRESH_TTL)
 '''
 # END JWT SETTINGS
 
+
+
+# Google Configuration
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "366111965494-bbgflimp8s9dtndoufsah3v235bt8lhh.apps.googleusercontent.com"
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "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"
+
+# Define SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE to get extra permissions from Google.
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
+    'https://www.googleapis.com/auth/userinfo.email',
+    'https://www.googleapis.com/auth/userinfo.profile',
+]
 
 
 

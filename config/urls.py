@@ -17,7 +17,10 @@ urlpatterns = [
     path("AIrefer/", include("AIrefer.urls")),
     path("report/", include("report.urls")),
     path("journey/", include("journey.urls")),
-    path("analyze/", include("analyze.urls"))
+    path("analyze/", include("analyze.urls")),
+    path("auth/", include('drf_social_oauth2.urls', namespace="drf")),
+    path("google-signup/", views.GoogleAuthRedirect.as_view()),
+    path("google-redirect/", views.GoogleRedirectURIView.as_view()),
 ]
 urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
 urlpatterns += static(STATIC_URL, document_root=STATIC_ROOT)
