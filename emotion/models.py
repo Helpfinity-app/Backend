@@ -49,3 +49,14 @@ class Depression(models.Model):
 
     def __str__(self):
         return str(self.title)+" | "+str(self.user)
+
+
+
+
+
+class Answer(models.Model):
+    title = models.CharField(max_length=500)
+    level = models.IntegerField(default=1)
+
+    def __str__(self):
+        return str(self.title)+" | "+str(self.level)

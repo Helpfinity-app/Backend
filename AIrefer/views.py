@@ -10,8 +10,7 @@ from journey.serializers import JourneySerializer, BreathSerializer
 from datetime import datetime
 from openai import OpenAI
 from django.utils import timezone
-
-
+from openai import OpenAI
 
 
 
@@ -60,7 +59,7 @@ class UserMultiAnswer(APIView):
 
 
 
-class Thoughts(APIView):
+class ThoughtsView(APIView):
     serializer_class = ThoughtsSerializer
     permission_classes = [IsAuthenticated]
 
@@ -75,17 +74,18 @@ class Thoughts(APIView):
             jserializer = JourneySerializer(data=data, partial=True)
             if jserializer.is_valid():
                 jserializer.save()
+            # sth to do about result...
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
-client = OpenAI(api_key='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')
 
 class ResultView(APIView):
     serializer_class = AIrefer_QuestionsSerializer
     permission_classes = [IsAuthenticated]
     def get(self, *args, **kwargs):
+        '''
         today = timezone.now().date()
         question_answers = User_AIrefer_Answer.objects.filter(user=self.request.user,date_time__date=today)
         user_answers = ""
@@ -100,7 +100,8 @@ class ResultView(APIView):
 
         response = client.completions.create(model="gpt-3.5-turbo-instruct",prompt=prompt,max_tokens=150)
         answer = response.choices[0].text.strip()
-        return Response(answer, status=status.HTTP_200_OK)
+        '''
+        return Response("---", status=status.HTTP_200_OK)
 
 
 
@@ -111,3 +112,27 @@ class AnswersView(APIView):
         answer = Answer.objects.all()
         serializer = self.serializer_class(answer,many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class ThoughtsResult(APIView):
+    serializer_class = ThoughtsSerializer
+    permission_classes = [IsAuthenticated]
+    def get(self, *args, **kwargs):
+        thought = Thoughts.objects.filter(user=self.request.user).last()
+        if thought:
+            messages = [
+                {"role": "user", "content": "Hello, how can I help you today?"},
+                {"role": "assistant", "content": "Hi! I'm your AI assistant. What would you like to know?"},
+            ]
+
+            client = OpenAI(api_key="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")
+            response = client.completions.create(
+                model="gpt-4o-mini",  # Replace with your desired model
+                prompt="\n".join([message["content"] for message in messages]),  # Combine messages
+                max_tokens=150,  # Adjust as needed
+                stop=None,
+                temperature=0.7)
+            final_response = response.choices[0].text.strip()
+            return Response(final_response, status=status.HTTP_200_OK)
+        else:
+            return Response("No thought found for this user", status=status.HTTP_400_BAD_REQUEST)

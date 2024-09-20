@@ -1,5 +1,5 @@
 from django.urls import path
-from emotion.views import Emotions, EmotionItem, Depressions, DepressionItem, Anxieties, AnxiteyItem
+from emotion.views import Emotions, EmotionItem, Depressions, DepressionItem, Anxieties, AnxiteyItem, AnswersView
 
 
 urlpatterns = [
@@ -11,6 +11,8 @@ urlpatterns = [
     #
     path("anxitey", Anxieties.as_view(), name="anxitey"),
     path('anxitey-item/<int:id>', AnxiteyItem.as_view(), name='anxitey-item'),
+    #
+    path('answers', AnswersView.as_view(), name='answers'),
 ]
 
 

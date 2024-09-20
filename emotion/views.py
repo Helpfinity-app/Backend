@@ -9,7 +9,8 @@ from django.shortcuts import render, get_object_or_404
 from journey.models import Journey, Breath
 from journey.serializers import JourneySerializer, BreathSerializer
 from datetime import datetime
-
+from emotion.models import Answer
+from emotion.serializers import AnswerSerializer
 
 
 class Emotions(APIView):
@@ -116,3 +117,14 @@ class AnxiteyItem(APIView):
             anxitey = get_object_or_404(Anxitey, id=self.kwargs["id"])
             serializer = self.serializer_class(anxitey)
             return Response(serializer.data)
+
+
+
+
+class AnswersView(APIView):
+    serializer_class = AnswerSerializer
+    permission_classes = [AllowAny]
+    def get(self, *args, **kwargs):
+        answer = Answer.objects.all()
+        serializer = self.serializer_class(answer,many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

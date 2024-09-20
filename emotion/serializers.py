@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from emotion.models import Emotion, Depression, Anxitey
+from emotion.models import Emotion, Depression, Anxitey, Answer
 
 class EmotionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,4 +19,10 @@ class AnxiteySerializer(serializers.ModelSerializer):
 class DepressionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Depression
+        fields = "__all__"
+
+
+class AnswerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Answer
         fields = "__all__"
