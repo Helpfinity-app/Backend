@@ -96,18 +96,24 @@ class Anxieties(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
-        data=self.request.data
-        data['user'] = self.request.user.id
-        data['level'] = 1
-        data['date'] = datetime.now().strftime('%A')
-        serializer = AnxiteySerializer(data=data,partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            jserializer = JourneySerializer(data=data, partial=True)
-            if jserializer.is_valid():
-                jserializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            data = self.request.data.copy()
+
+            for item in data:
+                new_obj = Anxitey()
+                new_obj.user = self.request.user
+                new_obj.title = item["title"]
+                new_obj.level = item["level"]
+                new_obj.save()
+
+            journey = Journey()
+            journey.user = self.request.user
+            journey.level = 1
+            journey.date = datetime.now().strftime('%A')
+            journey.save()
+            return Response("Emotions added.", status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response(f"Error in adding emotions: {e}", status=status.HTTP_400_BAD_REQUEST)
 
 
 class AnxiteyItem(APIView):
