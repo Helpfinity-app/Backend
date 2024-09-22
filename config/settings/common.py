@@ -174,7 +174,7 @@ STATICFILES_DIRS = (
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-
+'''
 # CACHING CONFIGURATION
 CACHES = {
     "default": {
@@ -183,6 +183,7 @@ CACHES = {
     }
 }
 # END CACHING CONFIGURATION
+'''
 
 # AUTH USER MODEL CONFIGURATION
 AUTH_USER_MODEL = "accounts.User"

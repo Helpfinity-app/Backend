@@ -13,18 +13,7 @@ services:
     networks:
       main:
     env_file:
-      - .env
-
-  redis:
-    container_name: redis
-    image: redis:7.0
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis-data:/data
-    restart: unless-stopped
-    networks:
-      main:
+      - .env.p
 
   backend:
     container_name: backend
@@ -38,10 +27,9 @@ services:
     volumes:
       - .:/helpfinity_back
     env_file:
-      - .env
+      - .env.p
     depends_on:
       - postgres
-      - redis
     restart: unless-stopped
     networks:
       main:
@@ -51,6 +39,4 @@ networks:
 
 volumes:
   postgres_data:
-    driver: local
-  redis-data:
     driver: local
