@@ -23,11 +23,28 @@ DATABASES = {
 
 
 # CORSHEADERS CONFIGURATION
-CORS_ALLOWED_ORIGINS = ["http://localhost", "http://127.0.0.1","http://5.161.144.222", "http://btrr.me"]
-CSRF_TRUSTED_ORIGINS = ["http://localhost", "http://127.0.0.1","http://5.161.144.222", "http://btrr.me"]
-CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost",
+    "http://127.0.0.1",
+    "http://5.161.144.222",
+    "http://btrr.me",
+    "https://helpfinity.btrr.me"
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost",
+    "http://127.0.0.1",
+    "http://5.161.144.222",
+    "http://btrr.me",
+    "https://helpfinity.btrr.me"
+]
+CORS_ORIGIN_ALLOW_ALL = True
 CORS_REPLACE_HTTPS_REFERER = True
 CORS_ALLOW_CREDENTIALS = True
+APPEND_SLASH = True
+
+
 MIDDLEWARE += ("corsheaders.middleware.CorsMiddleware",)
 # END CORSHEADERS CONFIGURATION
 DEBUG = get_env("DEBUG") == "True"
