@@ -252,9 +252,9 @@ REST_FRAMEWORK = {
 MAX_UPLOAD_SIZE = 5242880
 
 # CORSHEADERS CONFIGURATION
-ALLOWED_HOSTS = ['localhost','127.0.0.1','5.161.144.222']
-CORS_ALLOWED_ORIGINS = ["http://localhost", "http://127.0.0.1", "http://5.161.144.222"]
-CSRF_TRUSTED_ORIGINS = ["http://localhost", "http://127.0.0.1", "http://5.161.144.222"]
+ALLOWED_HOSTS = ['localhost','127.0.0.1','5.161.144.222', 'btrr.me', 'helpfinity.btrr.me']
+CORS_ALLOWED_ORIGINS = ["http://localhost", "http://127.0.0.1", "http://5.161.144.222", "http://helpfinity.btrr.me", "http://btrr.me"]
+CSRF_TRUSTED_ORIGINS = ["http://localhost", "http://127.0.0.1", "http://5.161.144.222", "http://helpfinity.btrr.me", "http://btrr.me"]
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_REPLACE_HTTPS_REFERER = True
 CORS_ALLOW_CREDENTIALS = True
