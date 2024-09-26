@@ -75,8 +75,9 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    #"allauth.account.middleware.AccountMiddleware",
-    #"utilities.middlware.CrossDomainSessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
+    "utilities.middlware.CrossDomainSessionMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"

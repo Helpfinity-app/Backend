@@ -25,7 +25,7 @@ DATABASES = {
 # CORSHEADERS CONFIGURATION
 CORS_ALLOWED_ORIGINS = ["http://localhost", "http://127.0.0.1","http://5.161.144.222"]
 CSRF_TRUSTED_ORIGINS = ["http://localhost", "http://127.0.0.1","http://5.161.144.222"]
-
+CORS_ALLOW_ALL_ORIGINS = True
 CORS_REPLACE_HTTPS_REFERER = True
 CORS_ALLOW_CREDENTIALS = True
 MIDDLEWARE += ("corsheaders.middleware.CorsMiddleware",)
@@ -33,3 +33,6 @@ MIDDLEWARE += ("corsheaders.middleware.CorsMiddleware",)
 DEBUG = get_env("DEBUG") == "True"
 
 JWT_SECRET = get_env("JWT_SECRET", default=SECRET_KEY)
+
+ACCESS_TTL = int(get_env("ACCESS_TTL", default="3"))  # days
+REFRESH_TTL = int(get_env("REFRESH_TTL", default="12"))  # days
