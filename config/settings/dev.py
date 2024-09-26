@@ -1,6 +1,5 @@
 from config.settings.common import *
 
-ALLOWED_HOSTS = []
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -25,5 +24,4 @@ DATABASES = {
 }
 # END DATABASE CONFIGURATION
 
-JWT_SECRET = "fake secret"
 ALLOWED_HOSTS=['*']
