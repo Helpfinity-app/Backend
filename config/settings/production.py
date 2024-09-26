@@ -45,6 +45,7 @@ CORS_ALLOW_CREDENTIALS = True
 APPEND_SLASH = True
 
 
+
 MIDDLEWARE += ("corsheaders.middleware.CorsMiddleware",)
 # END CORSHEADERS CONFIGURATION
 DEBUG = get_env("DEBUG") == "True"
