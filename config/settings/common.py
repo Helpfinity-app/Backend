@@ -197,11 +197,16 @@ OTP_TTL = int(get_env("OTP_TTL", default="120"))
 
 
 # JWT SETIINGS
-ACCESS_TTL = int(get_env("ACCESS_TTL", default="1"))  # days
-REFRESH_TTL = int(get_env("REFRESH_TTL", default="1"))  # days
+ACCESS_TTL = int(get_env("ACCESS_TTL", default="3"))  # days
+REFRESH_TTL = int(get_env("REFRESH_TTL", default="12"))  # days
 
 #ACCESS_TTL = 10000#0.0006
 #REFRESH_TTL = 10000#0.005
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=4320),  # Set your desired access token lifetime
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=12),    # Set your desired refresh token lifetime
+}
 
 '''
 ACCESS_TIME = timedelta(minutes=10)
