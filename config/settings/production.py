@@ -53,3 +53,4 @@ JWT_SECRET = get_env("JWT_SECRET", default=SECRET_KEY)
 
 ACCESS_TTL = int(get_env("ACCESS_TTL", default="3"))  # days
 REFRESH_TTL = int(get_env("REFRESH_TTL", default="12"))  # days
+
