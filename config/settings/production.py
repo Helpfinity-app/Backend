@@ -39,8 +39,8 @@ CSRF_TRUSTED_ORIGINS = [
     "http://btrr.me",
     "https://helpfinity.btrr.me"
 ]
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_REPLACE_HTTPS_REFERER = True
+#CORS_ORIGIN_ALLOW_ALL = True
+#CORS_REPLACE_HTTPS_REFERER = True
 CORS_ALLOW_CREDENTIALS = True
 APPEND_SLASH = True
 
