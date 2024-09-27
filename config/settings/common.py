@@ -174,7 +174,7 @@ STATICFILES_DIRS = (
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-
+''' 
 # CACHING CONFIGURATION
 CACHES = {
     "default": {
@@ -183,7 +183,7 @@ CACHES = {
     }
 }
 # END CACHING CONFIGURATION
-
+'''
 
 # AUTH USER MODEL CONFIGURATION
 AUTH_USER_MODEL = "accounts.User"
@@ -228,8 +228,8 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         'accounts.backends.JWTAuthentication',
         #'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
+        #'rest_framework.authentication.SessionAuthentication',
+        #'rest_framework.authentication.BasicAuthentication',
         #'rest_framework.authentication.TokenAuthentication',
         #'rest_framework_simplejwt.authentication.JWTAuthentication'
     ),
