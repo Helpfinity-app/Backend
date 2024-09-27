@@ -15,6 +15,17 @@ services:
     env_file:
       - .env
 
+  redis:
+    container_name: redis
+    image: redis:7.0
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+    networks:
+      main:
+
   backend:
     container_name: backend
     build: ./
@@ -30,6 +41,7 @@ services:
       - .env
     depends_on:
       - postgres
+      - redis
     restart: unless-stopped
     networks:
       main:
@@ -39,4 +51,6 @@ networks:
 
 volumes:
   postgres_data:
+    driver: local
+  redis-data:
     driver: local
