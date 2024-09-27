@@ -8,15 +8,10 @@ class JWTAuthentication(authentication.BaseAuthentication):
         access_from_cookie = request.COOKIES.get("HTTP_ACCESS") or request.COOKIES.get("HTTP_AUTHORIZATION")
         access_from_header = request.META.get("HTTP_ACCESS") or request.META.get("HTTP_AUTHORIZATION")
         access = access_from_cookie or access_from_header
-
         if access is None:
             return None
         if access[0:7] == "Bearer ":
             access = access[7:]
-
-            logger.error('----access----')
-            logger.error(access)
-
         token_data = claim_token(token=access)
         if token_data.get("type") != "access":
             return None
