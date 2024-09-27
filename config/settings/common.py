@@ -238,7 +238,9 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "accounts.backends.JWTAuthentication",
-        #'allauth.account.auth_backends.AuthenticationBackend',
+        'allauth.account.auth_backends.AuthenticationBackend',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ),
     "DEFAULT_THROTTLE_RATES": {"otp": get_env("OTP_THROTTLE_RATE", default="10/min"), },
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
