@@ -201,6 +201,15 @@ REFRESH_TTL = int(get_env("REFRESH_TTL", default="5"))  # days
 JWT_SECRET = get_env("SECRET_KEY")
 # END JWT SETTINGS
 
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1500),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': get_env("SECRET_KEY"),
+    'AUTH_HEADER_TYPES': ('Bearer',),
+}
 
 
 # Google Configuration
@@ -232,8 +241,8 @@ REST_FRAMEWORK = {
 MAX_UPLOAD_SIZE = 5242880
 
 # CORSHEADERS CONFIGURATION
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '5.161.144.222', 'helpfinity.btrr.me', 'btrr.me']
-
+#ALLOWED_HOSTS = ['localhost', '127.0.0.1', '5.161.144.222', 'helpfinity.btrr.me', 'btrr.me']
+ALLOWED_HOSTS=['*']
 CORS_ALLOWED_ORIGINS = [
     "http://localhost",
     "http://127.0.0.1",
