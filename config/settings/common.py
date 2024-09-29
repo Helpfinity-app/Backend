@@ -249,14 +249,16 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost",
     "http://127.0.0.1",
     "http://5.161.144.222",
-    "http://btrr.me"
+    "http://helpfinity.app",
+    "https://helpfinity.app"
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost",
     "http://127.0.0.1",
     "http://5.161.144.222",
-    "http://btrr.me"
+    "http://helpfinity.app",
+    "https://helpfinity.app"
 ]
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
