@@ -6,8 +6,8 @@ from config.settings.common import *
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = get_env("SECRET_KEY")
 #ALLOWED_HOSTS = get_env("ALLOWED_HOSTS").split(",")
-#ALLOWED_HOSTS = ['localhost','127.0.0.1','5.161.144.222', "helpfinity.btrr.me", "btrr.me"]
-ALLOWED_HOSTS=['*']
+ALLOWED_HOSTS = ['localhost','127.0.0.1', '5.161.144.222','helpfinity.app','www.helpfinity.app','helpfinity.btrr.me','btrr.me']
+#ALLOWED_HOSTS=['*']
 # DATABASE CONFIGURATION
 DATABASES = {
     "default": {
@@ -42,6 +42,18 @@ CSRF_TRUSTED_ORIGINS = [
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 APPEND_SLASH = True
+
+CORS_ALLOW_METHODS = [
+    "GET",
+    "POST",
+    "PUT",
+    "DELETE",
+]
+
+CORS_ALLOW_HEADERS = [
+    "content-type",
+    "authorization",
+]
 
 
 
