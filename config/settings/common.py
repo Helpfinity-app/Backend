@@ -3,7 +3,6 @@ from pathlib import Path
 from datetime import timedelta
 
 
-
 # GET ENV UTIL
 def get_env(key, default=None, optinal=False):
     """Return environment variables with some options."""
@@ -279,6 +278,7 @@ CORS_ALLOW_HEADERS = [
 ]
 
 
+'''
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -301,3 +301,4 @@ LOGGING = {
         },
     },
 }
+'''
