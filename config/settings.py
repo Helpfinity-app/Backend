@@ -2,16 +2,18 @@ from pathlib import Path
 from urllib.parse import quote
 from dotenv import load_dotenv
 import os
-
+from os import environ
 
 load_dotenv()
 KEY = os.getenv('KEY')
 
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = KEY
 #ALLOWED_HOSTS = get_env("ALLOWED_HOSTS").split(",")
-ALLOWED_HOSTS = ['localhost','127.0.0.1','0.0.0.0', 'studyways.ir']
+ALLOWED_HOSTS = ['localhost','127.0.0.1','0.0.0.0','helpfinity.app']
 
 
 CORS_REPLACE_HTTPS_REFERER = True
@@ -22,9 +24,6 @@ DEBUG = os.getenv("DEBUG") == "True"
 JWT_SECRET = os.getenv("JWT_SECRET", default=SECRET_KEY)
 
 
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
 
 SITE_ID = 2
 
@@ -40,8 +39,8 @@ if os.getenv("STAGE") == "PRODUCTION":
             "NAME": os.getenv("POSTGRES_DB"),
             "USER": os.getenv("POSTGRES_USER"),
             "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-            "HOST": "sabalan.liara.cloud",
-            "PORT": 33741,
+            "HOST": "annapurna.liara.cloud",
+            "PORT": 31496,
         }
     }
 else:
@@ -261,8 +260,8 @@ OTP_TTL = int(os.getenv("OTP_TTL", default="120"))
 # END OTP CONFIGURATION
 
 # JWT SETIINGS
-ACCESS_TTL = int(os.getenv("ACCESS_TTL", default="1"))  # days
-REFRESH_TTL = int(os.getenv("REFRESH_TTL", default="2"))  # days
+ACCESS_TTL = int(os.getenv("ACCESS_TTL", default="3"))  # days
+REFRESH_TTL = int(os.getenv("REFRESH_TTL", default="7"))  # days
 # END JWT SETTINGS
 
 
@@ -307,7 +306,6 @@ REST_FRAMEWORK = {
 
 
 # CORSHEADERS CONFIGURATION
-ALLOWED_HOSTS = ['studyways.ir','localhost','127.0.0.1','0.0.0.0', 'liara.run','app.studyways.ir']
 CORS_ALLOWED_ORIGINS = ["https://app.studyways.ir","https://liara.run","http://localhost","http://127.0.0.1","https://studyways.ir","https://.liara.run","https://.studyways.ir"]
 CSRF_TRUSTED_ORIGINS = ["https://app.studyways.ir","https://liara.run","http://localhost","http://127.0.0.1","https://studyways.ir","https://.liara.run","https://.studyways.ir"]
 CORS_ORIGIN_ALLOW_ALL = True
@@ -322,8 +320,4 @@ CORS_ORIGIN_WHITELIST = ["https://app.studyways.ir","https://liara.run","http://
 # END CORSHEADERS CONFIGURATION
 
 
-
-
 APPEND_SLASH = True
-
-
