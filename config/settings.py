@@ -37,7 +37,6 @@ else:
     }
 
 
-
 # APP CONFIGURATION
 DJANGO_APPS = (
     "django.contrib.auth",
