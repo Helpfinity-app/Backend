@@ -20,5 +20,3 @@ class Reminder(models.Model):
 
     def __str__(self):
         return str(self.day)+" | "+str(self.user)
-
-

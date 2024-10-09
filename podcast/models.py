@@ -15,7 +15,6 @@ class Category(models.Model):
 
 
 
-
 class Podcast(models.Model):
     name = models.CharField(max_length=128,unique=True)
     cover = models.ImageField(upload_to='media/podcast_cover', default="media/podcast_cover/default.png")
