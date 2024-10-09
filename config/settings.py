@@ -47,7 +47,6 @@ DJANGO_APPS = (
     "django.contrib.staticfiles",
     "django.contrib.admin",
     "django.contrib.admindocs",
-    "django.contrib.sites",
 )
 
 THIRD_PARTY_APPS = (
@@ -55,6 +54,7 @@ THIRD_PARTY_APPS = (
     "django_filters",
     "corsheaders",
     "gunicorn",
+    "django.contrib.sites",
     "drf_social_oauth2",
     "oauth2_provider",
 )
