@@ -7,29 +7,14 @@ from os import environ
 load_dotenv()
 KEY = os.getenv('KEY')
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = KEY
-#ALLOWED_HOSTS = get_env("ALLOWED_HOSTS").split(",")
 ALLOWED_HOSTS = ['localhost','127.0.0.1','0.0.0.0','helpfinity.app']
-
-
-CORS_REPLACE_HTTPS_REFERER = True
-CORS_ALLOW_CREDENTIALS = True
-# END CORSHEADERS CONFIGURATION
 DEBUG = os.getenv("DEBUG") == "True"
-
 JWT_SECRET = os.getenv("JWT_SECRET", default=SECRET_KEY)
-
-
-
 SITE_ID = 2
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
-
+AUTH_USER_MODEL = "accounts.User"
 
 
 if os.getenv("STAGE") == "PRODUCTION":
@@ -133,8 +118,6 @@ WSGI_APPLICATION = "config.wsgi.application"
 #ACCOUNT_EMAIL_VERIFICATION = "none"
 
 
-#ACCOUNT_EMAIL_VERIFICATION = "none"
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
@@ -184,9 +167,9 @@ PASSWORD_HASHERS = [
 
 # S3 Settings
 LIARA_ENDPOINT="https://storage.iran.liara.space"
-LIARA_BUCKET_NAME="studyways"
-LIARA_ACCESS_KEY="irgq6egfseolt7e4"
-LIARA_SECRET_KEY="4154e712-daf4-4dbe-97a3-38c2a773a2cb"
+LIARA_BUCKET_NAME="helpfinity"
+LIARA_ACCESS_KEY="aq5pfn7fo81ddara"
+LIARA_SECRET_KEY="2146eea4-e813-4d2a-a4f0-f4b69377a8cd"
 
 # S3 Settings Based on AWS (optional)
 AWS_ACCESS_KEY_ID = LIARA_ACCESS_KEY
@@ -224,35 +207,11 @@ USE_TZ = True
 
 STATIC_ROOT = os.getenv("STATIC_ROOT", default="/static/")
 STATIC_URL = os.getenv("STATIC_URL", default="/static/")
-MEDIA_ROOT = "https://studyways.storage.iran.liara.space/media/"
-MEDIA_URL = "https://studyways.storage.iran.liara.space/media/"
+MEDIA_ROOT = "https://helpfinity.storage.iran.liara.space/media/"
+MEDIA_URL = "https://helpfinity.storage.iran.liara.space/media/"
 #STATICFILES_DIRS = ["docs/"]
 
 
-
-
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-
-# CACHING CONFIGURATION
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": "redis://:lz8w2ZIVDIt8z3Mu4iJGvKS3@sabalan.liara.cloud:30854/0"
-    }
-}
-# END CACHING CONFIGURATION
-
-
-
-
-# AUTH USER MODEL CONFIGURATION
-AUTH_USER_MODEL = "accounts.User"
-# END AUTH USER MODEL CONFIGURATION
 
 # OTP CONFIGURATION
 OTP_CODE_LENGTH = int(os.getenv("OTP_CODE_LENGTH", default="4"))
@@ -278,7 +237,7 @@ AUTHENTICATION_BACKENDS = [
 # Google Configuration
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "366111965494-bbgflimp8s9dtndoufsah3v235bt8lhh.apps.googleusercontent.com"
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "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"
-SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT_URI = 'https://api.studyways.com/google-redirect/'
+SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT_URI = 'https://api.helpfinity.app/google-redirect/'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     'https://www.googleapis.com/auth/userinfo.email',
     'https://www.googleapis.com/auth/userinfo.profile',
@@ -306,18 +265,20 @@ REST_FRAMEWORK = {
 
 
 # CORSHEADERS CONFIGURATION
-CORS_ALLOWED_ORIGINS = ["https://app.studyways.ir","https://liara.run","http://localhost","http://127.0.0.1","https://studyways.ir","https://.liara.run","https://.studyways.ir"]
-CSRF_TRUSTED_ORIGINS = ["https://app.studyways.ir","https://liara.run","http://localhost","http://127.0.0.1","https://studyways.ir","https://.liara.run","https://.studyways.ir"]
+domain_list = ["https://helpfinity.app","https://liara.run","http://localhost","http://127.0.0.1","https://api.helpfinity.app","https://.helpfinity.app"]
+CORS_ALLOWED_ORIGINS = domain_list
+CSRF_TRUSTED_ORIGINS = domain_list
+CORS_ORIGIN_WHITELIST = domain_list
 CORS_ORIGIN_ALLOW_ALL = True
-CORS_REPLACE_HTTPS_REFERER = True
+#CORS_REPLACE_HTTPS_REFERER = True
 CORS_ALLOW_CREDENTIALS = True
 SESSION_COOKIE_SECURE=True
 #CSRF_COOKIE_SECURE = False
 #CSRF_COOKIE_HTTPONLY = False
 #SESSION_COOKIE_SAMESITE = False
 #SESSION_COOKIE_DOMAIN = "http://195.214.235.46"
-CORS_ORIGIN_WHITELIST = ["https://app.studyways.ir","https://liara.run","http://localhost","http://127.0.0.1","https://studyways.ir","https://.liara.run","https://.studyways.ir"]
 # END CORSHEADERS CONFIGURATION
 
-
 APPEND_SLASH = True
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+

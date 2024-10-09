@@ -9,7 +9,7 @@ class User(AbstractUser):
     last_name = models.CharField(max_length=50, null=True, blank=True)
     email = models.EmailField(max_length=70,null=True,blank=True,unique=True)
     email_verified = models.BooleanField(default=False)
-    photo = models.ImageField(upload_to='profile_photo', default="profile_photo/default.png")
+    photo = models.ImageField(upload_to='media/profile_photo', default="media/profile_photo/default.png")
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
 
