@@ -168,7 +168,7 @@ PASSWORD_HASHERS = [
 
 
 # S3 Settings
-LIARA_ENDPOINT="https://storage.iran.liara.space"
+LIARA_ENDPOINT="https://storage.c2.liara.space"
 LIARA_BUCKET_NAME="helpfinity"
 LIARA_ACCESS_KEY="aq5pfn7fo81ddara"
 LIARA_SECRET_KEY="2146eea4-e813-4d2a-a4f0-f4b69377a8cd"
@@ -209,10 +209,9 @@ USE_TZ = True
 
 STATIC_ROOT = os.getenv("STATIC_ROOT", default="/static/")
 STATIC_URL = os.getenv("STATIC_URL", default="/static/")
-MEDIA_ROOT = "https://helpfinity.storage.iran.liara.space/media/"
-MEDIA_URL = "https://helpfinity.storage.iran.liara.space/media/"
+MEDIA_ROOT = "https://helpfinity.storage.c2.liara.space/media/"
+MEDIA_URL = "https://helpfinity.storage.c2.liara.space/media/"
 #STATICFILES_DIRS = ["docs/"]
-
 
 
 # OTP CONFIGURATION
