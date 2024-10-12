@@ -10,7 +10,6 @@ from journey.serializers import JourneySerializer, BreathSerializer
 from datetime import datetime
 from openai import OpenAI
 from django.utils import timezone
-from openai import OpenAI
 from django.http import JsonResponse
 
 
@@ -122,8 +121,7 @@ class ThoughtsResult(APIView):
         assistant = "You are a bot whose sole function is to identify negative thought patterns such as overgeneralization, black-and-white thinking, catastrophizing, personalization, filtering, mind reading, 'should' and 'must' statements, jumping to conclusions, magnification or minimization, labeling, and emotional reasoning that the user provides to you.\n Your tasks are: 1- Reflect the Negative Pattern and Provide an Explanation: Identify the specific negative thinking pattern present in the user's thought and inform them about it, including a brief explanation of this pattern.  2- Rewrite the User's Thought in an Appropriate Way: Reconstruct the user's thought optimally, transforming it into a more balanced and positive perspective. \n You are to perform only and exclusively these two functions."
         if thought:
             try:
-                client = OpenAI(
-                    api_key="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")
+                client = OpenAI(api_key="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")
                 response = client.chat.completions.create(
                     model="gpt-4",  # Replace with your desired model gpt-4o-mini
                     messages=[
