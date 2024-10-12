@@ -14,7 +14,6 @@ from openai import OpenAI
 from django.http import JsonResponse
 
 
-
 class Questions(APIView):
     serializer_class = AIrefer_QuestionsSerializer
     permission_classes = [IsAuthenticated]
@@ -143,4 +142,3 @@ class ThoughtsResult(APIView):
             return Response(message_content, status=status.HTTP_200_OK)
         else:
             return Response("No thought found for this user", status=status.HTTP_400_BAD_REQUEST)
-
