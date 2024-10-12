@@ -59,16 +59,20 @@ class Depressions(APIView):
 
     def post(self, request, format=None):
         data=self.request.data
-        data['user'] = self.request.user.id
-        data['level'] = 1
-        data['date'] = datetime.now().strftime('%A')
-        serializer = DepressionSerializer(data=data,partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            jserializer = JourneySerializer(data=data, partial=True)
-            if jserializer.is_valid():
-                jserializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        for item in data:
+            item['user'] = self.request.user.id
+            serializer = DepressionSerializer(data=item, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+
+        jdata={}
+        jdata['user'] = self.request.user.id
+        jdata['level'] = 1
+        jdata['date'] = datetime.now().strftime('%A')
+        jserializer = JourneySerializer(data=jdata, partial=True)
+        if jserializer.is_valid():
+            jserializer.save()
+            return Response("Emotions added.", status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

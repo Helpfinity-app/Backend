@@ -11,6 +11,7 @@ from datetime import datetime
 from openai import OpenAI
 from django.utils import timezone
 from openai import OpenAI
+from django.http import JsonResponse
 
 
 
@@ -119,20 +120,27 @@ class ThoughtsResult(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, *args, **kwargs):
         thought = Thoughts.objects.filter(user=self.request.user).last()
+        assistant = "You are a bot whose sole function is to identify negative thought patterns such as overgeneralization, black-and-white thinking, catastrophizing, personalization, filtering, mind reading, 'should' and 'must' statements, jumping to conclusions, magnification or minimization, labeling, and emotional reasoning that the user provides to you.\n Your tasks are: 1- Reflect the Negative Pattern and Provide an Explanation: Identify the specific negative thinking pattern present in the user's thought and inform them about it, including a brief explanation of this pattern.  2- Rewrite the User's Thought in an Appropriate Way: Reconstruct the user's thought optimally, transforming it into a more balanced and positive perspective. \n You are to perform only and exclusively these two functions."
         if thought:
-            messages = [
-                {"role": "user", "content": "Hello, how can I help you today?"},
-                {"role": "assistant", "content": "Hi! I'm your AI assistant. What would you like to know?"},
-            ]
+            try:
+                client = OpenAI(
+                    api_key="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")
+                response = client.chat.completions.create(
+                    model="gpt-4",  # Replace with your desired model gpt-4o-mini
+                    messages=[
+                        {"role": "user", "content": "{}".format(thought.thoughts)},
+                        {"role": "system", "content": assistant},
+                    ],
+                    max_tokens=150,  # Adjust as needed
+                    stop=None,
+                    temperature=0.7)
+                #final_response = response.choices[0].message['content']
+                response_dict = response.model_dump()
+                message_content = response_dict['choices'][0]['message']['content']
 
-            client = OpenAI(api_key="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")
-            response = client.completions.create(
-                model="gpt-4o-mini",  # Replace with your desired model
-                prompt="\n".join([message["content"] for message in messages]),  # Combine messages
-                max_tokens=150,  # Adjust as needed
-                stop=None,
-                temperature=0.7)
-            final_response = response.choices[0].text.strip()
-            return Response(final_response, status=status.HTTP_200_OK)
+            except Exception as e:
+                return JsonResponse({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(message_content, status=status.HTTP_200_OK)
         else:
             return Response("No thought found for this user", status=status.HTTP_400_BAD_REQUEST)
+
