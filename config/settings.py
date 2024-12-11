@@ -11,7 +11,7 @@ KEY = os.getenv('KEY')
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = KEY
 ALLOWED_HOSTS = ['localhost','127.0.0.1','0.0.0.0','helpfinity.app']
-DEBUG = os.getenv("DEBUG") == "True"
+DEBUG = os.getenv("DEBUG") == "False"
 JWT_SECRET = os.getenv("JWT_SECRET", default=SECRET_KEY)
 SITE_ID = 2
 AUTH_USER_MODEL = "accounts.User"

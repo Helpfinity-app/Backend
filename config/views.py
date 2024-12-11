@@ -16,9 +16,10 @@ from accounts.serializers import UserSerializer
 #from accounts.utils import random_with_N_digits
 
 
-
+'''
 def index(request):
     return render(request, 'index.html')
+'''
 
 
 class Landing(APIView):

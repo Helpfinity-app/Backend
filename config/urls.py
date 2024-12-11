@@ -21,7 +21,7 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('', views.index, name='home'),
+    #path('', views.index, name='home'),
     path('landing', views.Landing.as_view() , name='landing'),
     path("admin/", admin.site.urls),
     path("accounts/", include("accounts.urls")),

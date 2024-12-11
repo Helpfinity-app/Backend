@@ -22,21 +22,24 @@ class Login(APIView):
         user = authenticate(email=email, password=password)
 
         if user is not None:
-            access, refresh = login(user)
+            if user.confirmed == True:
 
-            data = {"refresh_token": refresh, "access_token": access, "user_data": UserSerializer(user).data,}
-            response = Response({"success": True,"data": data,},status=status.HTTP_200_OK,)
+                access, refresh = login(user)
 
-            response.set_cookie(
-                "HTTP_ACCESS",
-                f"Bearer {access}",
-                max_age=ACCESS_TTL * 24 * 3600,
-                secure=True,
-                httponly=True,
-                samesite="None",
-            )
-            return response
+                data = {"refresh_token": refresh, "access_token": access, "user_data": UserSerializer(user).data, }
+                response = Response({"success": True, "data": data, }, status=status.HTTP_200_OK, )
 
+                response.set_cookie(
+                    "HTTP_ACCESS",
+                    f"Bearer {access}",
+                    max_age=ACCESS_TTL * 24 * 3600,
+                    secure=True,
+                    httponly=True,
+                    samesite="None",
+                )
+                return response
+            else:
+                return Response({"success": False, "errors": [_("You are not confirmed yet.")]},status=status.HTTP_400_BAD_REQUEST,)
 
         else:
             return Response(
