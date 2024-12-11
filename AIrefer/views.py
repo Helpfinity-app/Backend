@@ -121,7 +121,7 @@ class ThoughtsResult(APIView):
         assistant = "You are a bot whose sole function is to identify negative thought patterns such as overgeneralization, black-and-white thinking, catastrophizing, personalization, filtering, mind reading, 'should' and 'must' statements, jumping to conclusions, magnification or minimization, labeling, and emotional reasoning that the user provides to you.\n Your tasks are: 1- Reflect the Negative Pattern and Provide an Explanation: Identify the specific negative thinking pattern present in the user's thought and inform them about it, including a brief explanation of this pattern.  2- Rewrite the User's Thought in an Appropriate Way: Reconstruct the user's thought optimally, transforming it into a more balanced and positive perspective. \n You are to perform only and exclusively these two functions."
         if thought:
             try:
-                client = OpenAI(api_key="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")
+                client = OpenAI(api_key="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")
                 response = client.chat.completions.create(
                     model="gpt-4",  # Replace with your desired model gpt-4o-mini
                     messages=[

@@ -10,6 +10,8 @@ from django.utils import timezone
 from datetime import timedelta
 from journey.serializers import JourneySerializer, BreathSerializer
 from datetime import datetime
+import pytz
+
 
 
 class JourneyStepsView(APIView):
@@ -17,7 +19,7 @@ class JourneyStepsView(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, *args, **kwargs):
         today = timezone.now()
-        journey = Journey.objects.filter(date_time__date=today.date()).order_by('-level').first()
+        journey = Journey.objects.filter(user=self.request.user,date_time__date=today.date()).order_by('-level').first()
         if journey:
             serializer = self.serializer_class(journey)
             return Response(serializer.data, status=status.HTTP_200_OK)
@@ -30,12 +32,13 @@ class JourneyView(APIView):
     serializer_class = JourneySerializer
     permission_classes = [IsAuthenticated]
     def get(self, *args, **kwargs):
-        eight_days_ago = timezone.now() - timedelta(days=8)
+        eight_days_ago = datetime.now() - timedelta(days=8)
         journeys = Journey.objects.filter(user=self.request.user, date_time__gte=eight_days_ago)
         # Get the journey with the highest level for each day
         result = []
         for day in range(8):
             day_start = eight_days_ago + timedelta(days=day)
+            day_start = day_start.replace(tzinfo=timezone.utc)  # Ensure timezone-aware
             day_end = day_start + timedelta(days=1)
             max_level_journey = journeys.filter(date_time__gte=day_start, date_time__lt=day_end).order_by('-level').first()
             if max_level_journey:

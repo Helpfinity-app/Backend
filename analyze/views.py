@@ -255,6 +255,7 @@ class Full(APIView):
         counter = Counter(combined_list)
         sorted_data = sorted(counter.items(), key=lambda x: (-x[1], x[0]))
 
+
         num = 1
         top_positive = []
         if len(sorted_data) >= 5:
@@ -338,7 +339,7 @@ class Full(APIView):
         num = 1
         top_negative = []
         if len(sorted_data) >= 5:
-            for obj in sorted_data:
+            for obj in sorted_data2:
                 if num <= 5:
                     if num == 1:
                         top_negative.append({"x": 15, "y": 45, "z": 35, "label": obj[0]})
@@ -352,7 +353,7 @@ class Full(APIView):
                         top_negative.append({"x": 34, "y": 25, "z": 20, "label": obj[0]})
                     num += 1
         elif len(sorted_data) == 4:
-            for obj in sorted_data:
+            for obj in sorted_data2:
                 if num <= 5:
                     if num == 1:
                         top_negative.append({"x": 15, "y": 45, "z": 35, "label": obj[0]})
@@ -365,7 +366,7 @@ class Full(APIView):
                         top_negative.append({"x": 34, "y": 25, "z": 0, "label": ""})
                     num += 1
         elif len(sorted_data) == 3:
-            for obj in sorted_data:
+            for obj in sorted_data2:
                 if num <= 5:
                     if num == 1:
                         top_negative.append({"x": 15, "y": 45, "z": 35, "label": obj[0]})
@@ -377,7 +378,7 @@ class Full(APIView):
                         top_negative.append({"x": 34, "y": 25, "z": 0, "label": ""})
                     num += 1
         elif len(sorted_data) == 2:
-            for obj in sorted_data:
+            for obj in sorted_data2:
                 if num <= 5:
                     if num == 1:
                         top_negative.append({"x": 15, "y": 45, "z": 35, "label": obj[0]})
@@ -388,7 +389,7 @@ class Full(APIView):
                         top_negative.append({"x": 34, "y": 25, "z": 0, "label": ""})
                     num += 1
         elif len(sorted_data) == 1:
-            for obj in sorted_data:
+            for obj in sorted_data2:
                 if num <= 5:
                     if num == 1:
                         top_negative.append({"x": 15, "y": 45, "z": 35, "label": obj[0]})
