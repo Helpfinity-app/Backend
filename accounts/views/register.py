@@ -14,14 +14,13 @@ class Register(APIView):
     serializer_class = UserRegisterSerializer
     permission_classes = [AllowAny]
     def post(self, *args, **kwargs):
-        confirmation_codes = ConfirmationCode.objects.all()
-
         serializer = UserRegisterSerializer(data=self.request.data)
         if serializer.is_valid():
             user = User.objects.create_user(**serializer.validated_data)
 
-            if not any(con_code['code'] == self.request.data["confirmation_code"] for con_code in confirmation_codes):
-                return Response({"success": False, "errors": [_("You are not confirmed yet, the code you enterd is incorrect")]},status=status.HTTP_400_BAD_REQUEST, )
+            confirmation_code = self.request.data.get("confirmation_code")
+            if not ConfirmationCode.objects.filter(code=confirmation_code).exists():
+                return Response({"success": False, "errors": [_("You are not confirmed yet, the code you entered is incorrect")]},status=status.HTTP_400_BAD_REQUEST)
 
             else:
                 user.confirmed = True
